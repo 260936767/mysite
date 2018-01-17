@@ -26,6 +26,7 @@ SECRET_KEY = '8(-9*vx^r*ifb7h!fq7i2#5okdzgz&@w^s@^)zicx_^dir8(sm'
 DEBUG = True
 # DEBUG = False
 
+# ALLOWED_HOSTS = ['127.0.0.1',]
 ALLOWED_HOSTS = []
 
 
@@ -87,9 +88,12 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+# 汉化
+LANGUAGE_CODE = 'zh_Hans'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

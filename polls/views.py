@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404
-from django.http import HttpResponse,Http404,HttpResponseRedirect
+from django.http import HttpResponse,Http404,HttpResponseRedirect  # 主要
 from .models import Question,Choice
 from django.template import RequestContext,loader
 from django.core.urlresolvers import reverse
@@ -26,7 +26,8 @@ class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
-    def get_queryset(self):
+
+    def get_queryset(self):  # 或者 queryset
         return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
 
