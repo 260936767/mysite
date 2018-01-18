@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<b>新增问题</b>
+<br>
+
+
+<form action="{% url 'polls:editQuestion' %}" method="post">
+    <a>问题内容：</a><input type="text" name = "question_text"><br><br>
+    <a>发布时间：</a><input type="datetime-local" name = "pub_date"><br><br>
+    <input type="submit" value="取消" name="cancel">
+    <input type="submit" value="保存" name="save">
+
+    {% csrf_token %}
+</form>
+
+<br>
+   {% if mess_error %}<b style="color: red">{{ mess_error }}</b>{% endif %}
+
+</body>
+</html>

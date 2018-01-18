@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>questions列表</title>
+</head>
+<body>
+<a href="{% url 'polls:addQuestion' %}">添加问题</a>
+{% if not questions %}<b>question is null</b>{% endif %}
+
+<table border="2px">
+    <tr>
+        <th>序号</th>
+        <th>问题内容</th>
+        <th>问题发布时间</th>
+        <th>创建时间</th>
+        <th>更新时间</th>
+        <th>操作</th>
+    </tr>
+    {% for question in questions %}
+    <tr>
+        <td>{{ question.id }}</td>
+        <td>{{ question.question_text }}</td>
+        <td>{{ question.pub_date }}</td>
+        <td>{{ question.create_time }}</td>
+        <td>{{ question.last_time }}</td>
+        <td>
+            <a href="{% url 'polls:deleteQueation' question.id  %}" >删除</a>
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

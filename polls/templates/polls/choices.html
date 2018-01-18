@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>choices列表</title>
+</head>
+<body>
+{% if not choices %}<b>choice is null</b>{% endif %}
+
+<table border="2px">
+    <tr>
+        <th>投票内容</th>
+        <th>票数</th>
+        <th>创建时间</th>
+        <th>更新时间</th>
+        <th>关联问题</th>
+    </tr>
+    {% for choice in choices %}
+    <tr>
+        <td>{{ choice.choice_text }}</td>
+        <td>{{ choice.votes }}</td>
+        <td>{{ choice.create_time }}</td>
+        <td>{{ choice.last_time }}</td>
+        <td>{{ choice.question }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+</html>

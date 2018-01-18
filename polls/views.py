@@ -5,6 +5,7 @@ from django.template import RequestContext,loader
 from django.core.urlresolvers import reverse
 from django.views import generic  #使用通用视图
 from django.utils import timezone
+import datetime,time
 
 # Create your views here.
 
@@ -76,3 +77,50 @@ def vote(request,question_id):
         selected_choice.votes +=1
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results',args=(p.id,)))
+
+def getChoices(request):
+    choicesList = Choice.choiceObject.all()
+    return render(request,'polls/choices.html',{'choices':choicesList})
+
+def getQuestions(request):
+    questionsList = Question.objects.all()
+    return render(request,'polls/questions.html',{'questions':questionsList})
+
+def addQuestion(request):
+
+    print("addQuestion")
+    return render(request, 'polls/addQuestion.html', {})
+def editQuestion(request):
+    print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    sysdate = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    if request.method == 'POST':
+        question_text = request.POST.get('question_text')
+        pub_date = request.POST.get('pub_date')
+
+        print(pub_date)
+        create_time = sysdate
+        last_time = sysdate
+
+        q = Question()
+        q.question_text = question_text
+        q.pub_date = pub_date
+        q.create_time = create_time
+        q.last_time = last_time
+        if question_text  == '' or pub_date == '':
+            return render(request, 'polls/addQuestion.html', {'mess_error': "data don't null"})
+        else:
+            q.save()
+            questionsList = Question.objects.all()
+            return render(request, 'polls/questions.html', {'questions': questionsList})
+
+
+
+
+def deleteQueation(request,question_id):
+    print("deleteQueation")
+    q = get_object_or_404(Question,pk = question_id)
+    print(q)
+    q.delete()
+    questionsList = Question.objects.all()
+    return render(request, 'polls/questions.html', {'questions': questionsList})
+
