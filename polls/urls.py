@@ -26,6 +26,6 @@ urlpatterns = [
     url(r'^questions/$', views.getQuestions, name='getQuestions'),
     url(r'^addQuestion/$', views.addQuestion, name='addQuestion'),
     url(r'^editQuestion/$', views.editQuestion, name='editQuestion'),
-    url(r'^(?P<question_id>[0-9]+)deleteQueation/$',views.deleteQueation,name='deleteQueation'),
+    url(r'^(?P<qid>[0-9]+)deleteQueation/$',views.deleteQueation,name='deleteQueation'),
 
 ]

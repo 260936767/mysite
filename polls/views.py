@@ -29,7 +29,7 @@ class IndexView(generic.ListView):
 
 
     def get_queryset(self):  # 或者 queryset
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
 
 
 '''
@@ -91,22 +91,15 @@ def addQuestion(request):
     print("addQuestion")
     return render(request, 'polls/addQuestion.html', {})
 def editQuestion(request):
-    print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    # print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     sysdate = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     if request.method == 'POST':
-        question_text = request.POST.get('question_text')
-        pub_date = request.POST.get('pub_date')
-
-        print(pub_date)
-        create_time = sysdate
-        last_time = sysdate
-
         q = Question()
-        q.question_text = question_text
-        q.pub_date = pub_date
-        q.create_time = create_time
-        q.last_time = last_time
-        if question_text  == '' or pub_date == '':
+        q.question_text = request.POST.get('question_text')
+        q.pub_date = request.POST.get('pub_date')
+        q.create_time = sysdate
+        q.last_time = sysdate
+        if q.question_text  == '' or q.pub_date == '':
             return render(request, 'polls/addQuestion.html', {'mess_error': "data don't null"})
         else:
             q.save()
@@ -116,9 +109,9 @@ def editQuestion(request):
 
 
 
-def deleteQueation(request,question_id):
+def deleteQueation(request,qid):
     print("deleteQueation")
-    q = get_object_or_404(Question,pk = question_id)
+    q = get_object_or_404(Question,pk = qid)
     print(q)
     q.delete()
     questionsList = Question.objects.all()
